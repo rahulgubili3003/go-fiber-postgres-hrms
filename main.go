@@ -55,26 +55,20 @@ func (r *Repository) CreateEmployee(context *fiber.Ctx) error {
 }
 
 func (r *Repository) GetEmployees(context *fiber.Ctx) error {
-	bookModels := &[]model.Employee{}
+	models := &[]model.Employee{}
 
-	err := r.DB.Find(bookModels).Error
+	err := r.DB.Find(models).Error
 	if err != nil {
 		err := context.Status(http.StatusBadRequest).JSON(
 			&fiber.Map{"message": "could not get books"})
-		if err != nil {
-			return err
-		}
 		return err
 	}
 
 	err = context.Status(http.StatusOK).JSON(&fiber.Map{
 		"message": "books fetched successfully",
-		"data":    bookModels,
+		"data":    models,
 	})
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 func (r *Repository) SetupRoutes(app *fiber.App) {
