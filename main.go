@@ -112,7 +112,7 @@ func main() {
 	}
 	app := fiber.New()
 	r.SetupRoutes(app)
-	err = app.Listen(":8081")
+	err = app.Listen(os.Getenv("PORT"))
 	if err != nil {
 		return
 	}
